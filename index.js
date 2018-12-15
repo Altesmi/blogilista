@@ -30,11 +30,12 @@ app.use('/api/blogs',blogsRouter)
 app.use('/api/users',usersRouter)
 app.use('/api/login',loginRouter)
 app.use('/api/comments', commentsRouter)
+app.use(express.static('build'))
 
 const server = http.createServer(app)
 
-
-server.listen(config.port, () => {
+const port = process.env.port || config.port
+server.listen(port, () => {
   console.log(`Server running on port ${config.port}`)
 });
 

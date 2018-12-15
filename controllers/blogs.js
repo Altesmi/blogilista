@@ -15,7 +15,6 @@ blogsRouter.post("/", async (request, response) => {
   try {
     const blog = new Blog(request.body);
     //if blog does not contain title or url return 400
-
     const token = request.token
     const decodedToken = jwt.verify(token, process.env.SECRET)
 
