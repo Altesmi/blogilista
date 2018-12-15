@@ -4,10 +4,12 @@ Valmis sovellus löytyy osoitteesta
 
 Palveluun pääsee kirjautumaan kahdella käyttäjätunnuksella:
 
-tunnus: admin...
+tunnus: admin
+
 salasana: root
 
-tunnus: uusi...
+tunnus: uusi
+
 salasana: passu
 
-frontin koodi löytyy [https://github.com/Altesmi/fullstackopen/tree/master/osa7/bloglist-frontend](täältä)
+frontin koodi löytyy [täältä](https://github.com/Altesmi/fullstackopen/tree/master/osa7/bloglist-frontend)
