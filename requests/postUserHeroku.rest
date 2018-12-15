@@ -1,0 +1,9 @@
+POST https://guarded-inlet-99095.herokuapp.com//api/users
+Content-Type: application/json
+
+{
+"name": "Uusi kayttaja",
+"username": "uusi",
+"adult": false,
+"password": "passu"
+}
