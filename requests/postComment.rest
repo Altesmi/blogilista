@@ -1,0 +1,6 @@
+POST http://localhost:3003/api/blogs/5bf1ff61369599322943ee10/comments
+Content-Type: application/json
+
+{
+"content": "Eka kommentti backendista rest-clientilla"
+}

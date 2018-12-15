@@ -15,8 +15,9 @@ var blogSchema = new mongoose.Schema({
   author: String,
   url: String,
   likes: Number,
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
-});
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
+})
 
 blogSchema.statics.format = function(blog) {
   return {
@@ -25,7 +26,8 @@ blogSchema.statics.format = function(blog) {
     url: blog.url,
     likes: blog.likes,
     id: blog._id,
-    user: blog.user
+    user: blog.user,
+    comments: blog.comments
   };
 };
 

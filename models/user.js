@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
-//const config = require("../utils/config")
 
-// if (process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config()
-// }
 
 var userSchema = new mongoose.Schema({
   username: String,
@@ -24,9 +20,5 @@ userSchema.statics.format = function(user) {
 };
 
 const User = mongoose.model("User", userSchema);
-
-// User.close = function() {
-//   mongoose.connection.close()
-// }
 
 module.exports = User;

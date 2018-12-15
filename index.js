@@ -6,6 +6,7 @@ const cors = require("cors")
 const blogsRouter = require("./controllers/blogs")
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const commentsRouter = require('./controllers/comments')
 const config = require("./utils/config")
 
 app.use(cors())
@@ -28,6 +29,7 @@ app.use(function(request,response,next) {
 app.use('/api/blogs',blogsRouter)
 app.use('/api/users',usersRouter)
 app.use('/api/login',loginRouter)
+app.use('/api/comments', commentsRouter)
 
 const server = http.createServer(app)
 

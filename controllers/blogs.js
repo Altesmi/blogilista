@@ -1,10 +1,12 @@
 const blogsRouter = require("express").Router();
 const Blog = require('../models/blog');
 const User = require('../models/user')
+const Comment = require('../models/comment')
 const jwt = require('jsonwebtoken')
 
 blogsRouter.get("/", async (request, response) => {
   let blogs = await Blog.find({})
+    .populate('comments', {content: 1})
     .populate('user', { username: 1, name: 1 })
   response.json(blogs.map(blog => Blog.format(blog)))
 });
@@ -34,10 +36,11 @@ blogsRouter.post("/", async (request, response) => {
     const user = await User.findById(decodedToken.id)
 
     blog.user = user._id
+    blog.comments = [] 
 
     const savedBlog = await blog.save()
 
-    const returnBlog = await Blog.findById(savedBlog._id).populate('user', { username: 1, name: 1 })
+    const returnBlog = await Blog.findById(savedBlog._id).populate('user', { username: 1, name: 1 }).populate('comments',{content: 1})
   
     user.blogs = user.blogs.concat(savedBlog._id)
 
@@ -65,7 +68,6 @@ blogsRouter.delete('/:id', async (request, response) => {
     if (!token || !decodedToken.id) {
       return response.status(400).json({ error: "Invalid or missing token" })
     }
-    console.log(request.params.id)
     const blog = await Blog.findById(request.params.id)
 
     if (typeof(blog.user) === 'undefined' || (blog.user.toString() === decodedToken.id.toString() )) {
@@ -122,6 +124,24 @@ blogsRouter.put('/:id', async (request, response) => {
   }
 
 
+})
+
+blogsRouter.post('/:id/comments/', async (request,response) => {
+  try{
+    const blog = await Blog.findById(request.params.id)
+
+    const comment = new Comment ({
+      content: request.body.content,
+      blog: blog._id
+    })
+
+    const savedComment = await comment.save()
+    blog.comments = blog.comments.concat(savedComment._id)
+    await blog.save()
+    return response.json(Comment.format(comment))
+  } catch (exception) {
+    return response.status(500).send({error: "Could not post comment"})
+  }
 })
 
 blogsRouter.close = function () {
